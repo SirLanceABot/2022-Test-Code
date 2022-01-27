@@ -1,8 +1,30 @@
-package frc.jwood;
+package frc.robot;
+
+// --------------------------------------------------------------------------- \\
+//  1. COPY THIS FILE                                                          \\
+//  2. PASTE THE NEW FILE IN THE "robot" PACKAGE                               \\
+//  3. RENAME THE NEW FILE "Robot.java"                                        \\
+//  4. ONLY IMPORT ONE OF THE FOLLOWING PACKAGES (UNCOMMENT IT)                \\
+//  5. DO NOT MAKE ANY OTHER CHANGES TO THIS FILE                              \\
+// --------------------------------------------------------------------------- \\
+
+// import frc.aburri.*;
+// import frc.dfife.*;
+// import frc.emeasel.*;
+// import frc.igupta.*;
+// import frc.jsawyer.*;
+// import frc.jwood.*;
+// import frc.mmconomy.*;
+// import frc.odoms.*;
+// import frc.rkapaluru.*;
+// import frc.rthomas.*;
+
+// --------------------------------------------------------------------------- \\
 
 import java.lang.invoke.MethodHandles;
+import edu.wpi.first.wpilibj.TimedRobot;
 
-public class MyRobot
+public class Robot extends TimedRobot
 {
     private static final String fullClassName = MethodHandles.lookup().lookupClass().getCanonicalName();
 
@@ -14,131 +36,139 @@ public class MyRobot
     }
 
     // *** CLASS & INSTANCE VARIABLES ***
-
+    private final MyRobot myRobot;
 
 
     // *** CLASS CONSTRUCTOR ***
-    public MyRobot()
+    public Robot()
     {
-
+        myRobot = new MyRobot();
     }
 
     /**
      * This method runs when the robot first starts up.
      */
+    @Override
     public void robotInit()
-    {   String name = this.getClass().getPackageName().toUpperCase();
-        String title = String.format("\n\n  *****  %s * %s * %s * %s * %s  *****\n\n", name, name, name, name, name);
-
-        System.out.println(title);
-        System.out.println(title);
-        System.out.println(title);
-        System.out.println(title);
-        System.out.println(title);
+    {
+        System.out.println("\n\n2022-Test-Code\n\n");
+        myRobot.robotInit();
     }
 
     /**
      * This method runs periodically (20ms) while the robot is powered on.
      */
+    @Override
     public void robotPeriodic()
     {
-
+        myRobot.robotPeriodic();
     }
 
     /**
      * This method runs one time when the robot enters autonomous mode.
      */
+    @Override
     public void autonomousInit()
     {
-
+        myRobot.autonomousInit();
     }
 
     /**
      * This method runs periodically (20ms) during autonomous mode.
      */
+    @Override
     public void autonomousPeriodic()
     {
-
+        myRobot.autonomousPeriodic();
     }
 
     /**
      * This method runs one time when the robot exits autonomous mode.
      */
+    @Override
     public void autonomousExit()
     {
-
+        myRobot.autonomousExit();
     }
 
     /**
      * This method runs one time when the robot enters teleop mode.
      */
+    @Override
     public void teleopInit()
     {
-        
+        myRobot.teleopInit();
     }
 
     /**
      * This method runs periodically (20ms) during teleop mode.
      */
+    @Override
     public void teleopPeriodic()
     {
-        
+        myRobot.teleopPeriodic();
     }
 
     /**
      * This method runs one time when the robot exits teleop mode.
      */
+    @Override
     public void teleopExit()
     {
-        
+        myRobot.teleopExit();
     }
 
     /**
      * This method runs one time when the robot enters test mode.
      */
+    @Override
     public void testInit()
     {
-
+        myRobot.testInit();
     }
 
     /**
      * This method runs periodically (20ms) during test mode.
      */
+    @Override
     public void testPeriodic()
     {
-
+        myRobot.testPeriodic();
     }
 
     /**
      * This method runs one time when the robot exits test mode.
      */
+    @Override
     public void testExit()
     {
-
+        myRobot.testExit();
     }
 
     /**
      * This method runs one time when the robot enters disabled mode.
      */
+    @Override
     public void disabledInit()
     {
-
+        myRobot.disabledInit();
     }
 
     /**
      * This method runs periodically (20ms) during disabled mode.
      */
+    @Override
     public void disabledPeriodic()
     {
-
+        myRobot.disabledPeriodic();
     }
 
     /**
      * This method runs one time when the robot exits disabled mode.
      */
+    @Override
     public void disabledExit()
     {
-
+        myRobot.disabledExit();
     }
-
 }
