@@ -1,4 +1,4 @@
-package frc.mmconomy;
+package frc.mmcconomy;
 
 import java.lang.invoke.MethodHandles;
 
