@@ -6,6 +6,8 @@ public class MyRobot
 {
     private static final String fullClassName = MethodHandles.lookup().lookupClass().getCanonicalName();
 
+    private static final String laptop5 = "Test push";
+
     // *** STATIC INITIALIZATION BLOCK ***
     // This block of code is run first when the class is loaded
     static
