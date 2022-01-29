@@ -14,7 +14,7 @@ public class MyRobot
     }
 
     // *** CLASS & INSTANCE VARIABLES ***
-
+    private static SensorTest sensorTest = new SensorTest();
 
 
     // *** CLASS CONSTRUCTOR ***
@@ -82,7 +82,7 @@ public class MyRobot
      */
     public void teleopPeriodic()
     {
-        
+        sensorTest.sensorOutput();
     }
 
     /**
