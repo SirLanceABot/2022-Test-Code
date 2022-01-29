@@ -5,6 +5,8 @@ import java.lang.invoke.MethodHandles;
 public class MyRobot
 {
     private static final String fullClassName = MethodHandles.lookup().lookupClass().getCanonicalName();
+    private static final String laptop3 = "Test with laptop 3";
+
 
     private static final String laptop5 = "Test push";
 
