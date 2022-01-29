@@ -14,7 +14,7 @@ public class MyRobot
     }
 
     // *** CLASS & INSTANCE VARIABLES ***
-
+    private static final String laptop4 = "Test";
 
 
     // *** CLASS CONSTRUCTOR ***
