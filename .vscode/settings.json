@@ -26,6 +26,5 @@
     },
   ],
   "java.test.defaultConfig": "WPIlibUnitTests",
-  "files.autoSave": "afterDelay",
-  "git.rebaseWhenSync": true
+  "files.autoSave": "afterDelay"
 }
