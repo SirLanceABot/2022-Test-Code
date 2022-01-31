@@ -2,6 +2,10 @@ package frc.jwood;
 
 import java.lang.invoke.MethodHandles;
 
+/**
+ * Jwood's Code
+ * @author jwood
+ */
 public class MyRobot
 {
     private static final String fullClassName = MethodHandles.lookup().lookupClass().getCanonicalName();
