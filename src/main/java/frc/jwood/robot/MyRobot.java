@@ -1,4 +1,8 @@
-package frc.jwood;
+// Copyright (c) FIRST and other WPILib contributors.
+// Open Source Software; you can modify and/or share it under the terms of
+// the WPILib BSD license file in the root directory of this project.
+
+package frc.jwood.robot;
 
 import java.lang.invoke.MethodHandles;
 
@@ -9,10 +13,6 @@ import java.lang.invoke.MethodHandles;
 public class MyRobot
 {
     private static final String fullClassName = MethodHandles.lookup().lookupClass().getCanonicalName();
-    private static final String laptop3 = "Test with laptop 3";
-
-
-    private static final String laptop5 = "Test push";
 
     // *** STATIC INITIALIZATION BLOCK ***
     // This block of code is run first when the class is loaded
@@ -21,14 +21,34 @@ public class MyRobot
         System.out.println("Loading: " + fullClassName);
     }
 
+    /**
+     * This keeps track of the current state of the robot, from startup to auto, to teleop, etc.
+     */
+    public static enum RobotState
+    {
+        kNone,
+        kRobotInit,
+        kDisabledAfterRobotInit,
+        kAutonomous,
+        kDisabledAfterAutonomous,
+        kTeleop,
+        kDisabledAfterTeleop,
+        kTest;
+    }
+
     // *** CLASS & INSTANCE VARIABLES ***
-    private static final String laptop4 = "Test";
+    private static final TestMode test = new TestMode();
+    private static final AutonomousMode autonomous = new AutonomousMode();
+    private static final DisabledMode disabled = new DisabledMode();
+    private static final TeleopMode teleop = new TeleopMode();
+
+    private static RobotState robotState = RobotState.kNone;
 
 
     // *** CLASS CONSTRUCTOR ***
     public MyRobot()
     {
-
+        
     }
 
     /**
@@ -37,6 +57,8 @@ public class MyRobot
     public void robotInit()
     {   
         displayHeader();
+        System.out.println("\n\n2022-Test-Code\n\n");
+        robotState = RobotState.kRobotInit;
     }
 
     /**
@@ -52,7 +74,9 @@ public class MyRobot
      */
     public void autonomousInit()
     {
+        robotState = RobotState.kAutonomous;
 
+        autonomous.init();
     }
 
     /**
@@ -60,7 +84,7 @@ public class MyRobot
      */
     public void autonomousPeriodic()
     {
-
+        autonomous.periodic();
     }
 
     /**
@@ -68,7 +92,7 @@ public class MyRobot
      */
     public void autonomousExit()
     {
-
+        autonomous.exit();
     }
 
     /**
@@ -76,6 +100,9 @@ public class MyRobot
      */
     public void teleopInit()
     {
+        robotState = RobotState.kTeleop;
+
+        teleop.init();
         
     }
 
@@ -84,7 +111,7 @@ public class MyRobot
      */
     public void teleopPeriodic()
     {
-        
+        teleop.periodic();
     }
 
     /**
@@ -92,7 +119,7 @@ public class MyRobot
      */
     public void teleopExit()
     {
-        
+        teleop.exit();
     }
 
     /**
@@ -100,7 +127,9 @@ public class MyRobot
      */
     public void testInit()
     {
+        robotState = RobotState.kTest;
 
+        test.init();
     }
 
     /**
@@ -108,7 +137,7 @@ public class MyRobot
      */
     public void testPeriodic()
     {
-
+        test.periodic();
     }
 
     /**
@@ -116,7 +145,7 @@ public class MyRobot
      */
     public void testExit()
     {
-
+        test.exit();
     }
 
     /**
@@ -124,7 +153,24 @@ public class MyRobot
      */
     public void disabledInit()
     {
+        if (robotState == RobotState.kRobotInit)
+        {
+            robotState = RobotState.kDisabledAfterRobotInit;
+        }
+        else if (robotState == RobotState.kAutonomous)
+        {
+            robotState = RobotState.kDisabledAfterAutonomous;
+        }
+        else if (robotState == RobotState.kTeleop)
+        {
+            robotState = RobotState.kDisabledAfterTeleop;
+        }
+        else if (robotState == RobotState.kTest)
+        {
+            robotState = RobotState.kDisabledAfterRobotInit;
+        }
 
+        disabled.init();
     }
 
     /**
@@ -132,7 +178,7 @@ public class MyRobot
      */
     public void disabledPeriodic()
     {
-
+        disabled.periodic();
     }
 
     /**
@@ -140,7 +186,17 @@ public class MyRobot
      */
     public void disabledExit()
     {
+        disabled.exit();
+    }
 
+    /**
+     * This method returns the current state of the robot
+     * @return the robot state
+     * @see RobotState
+     */
+    public static RobotState getRobotState()
+    {
+        return robotState;
     }
 
     /**
@@ -157,5 +213,4 @@ public class MyRobot
         System.out.println(title);
         System.out.println(title);
     }
-
 }
