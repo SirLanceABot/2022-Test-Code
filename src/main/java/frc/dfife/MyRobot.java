@@ -14,7 +14,7 @@ public class MyRobot
     }
 
     // *** CLASS & INSTANCE VARIABLES ***
-
+    BoschMotor boschMotorTest;
 
 
     // *** CLASS CONSTRUCTOR ***
@@ -29,6 +29,7 @@ public class MyRobot
     public void robotInit()
     {   
         displayHeader();
+        boschMotorTest = new BoschMotor();
     }
 
     /**
@@ -100,7 +101,7 @@ public class MyRobot
      */
     public void testPeriodic()
     {
-
+        testBoschMotor();
     }
 
     /**
@@ -150,4 +151,11 @@ public class MyRobot
         System.out.println(title);
     }
 
+    /**
+     * This method tests the bosch seat motor for testing the "encoder."
+     */
+    private void testBoschMotor()
+    {
+        System.out.println("Encoder: " + boschMotorTest.getEncoderValue());
+    }
 }
