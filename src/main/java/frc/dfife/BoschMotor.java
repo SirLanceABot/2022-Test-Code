@@ -1,5 +1,8 @@
 package frc.dfife;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.AnalogTrigger;
 import edu.wpi.first.wpilibj.Counter;
@@ -8,6 +11,8 @@ import edu.wpi.first.wpilibj.DigitalInput;
 public class BoschMotor
 {
     Counter motorCounter;
+    TalonSRX motorController;
+    AnalogInput irSensor;
 
     public BoschMotor()
     {
@@ -16,6 +21,8 @@ public class BoschMotor
         // Digital code for when you have a DIO adaptor
         // TODO Change to Digital Input but also needs a converter
         motorCounter = new Counter(new DigitalInput(encoderPort));
+        motorController = new TalonSRX(1);
+        irSensor = new AnalogInput(0);
 
         /*
         // Analog code that might work
@@ -29,5 +36,20 @@ public class BoschMotor
     {
         // 174.9 counts should be one rotation
         return motorCounter.get();
+    }
+
+    public void resetEncoderCounter()
+    {
+        motorCounter.reset();
+    }
+
+    public double getIrSensorValue()
+    {
+        return irSensor.getAverageVoltage();
+    }
+
+    public void setPercentOutput(double power)
+    {
+        motorController.set(ControlMode.PercentOutput, power);
     }
 }

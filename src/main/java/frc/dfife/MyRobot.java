@@ -2,6 +2,8 @@ package frc.dfife;
 
 import java.lang.invoke.MethodHandles;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 public class MyRobot
 {
     private static final String fullClassName = MethodHandles.lookup().lookupClass().getCanonicalName();
@@ -20,7 +22,7 @@ public class MyRobot
     // *** CLASS CONSTRUCTOR ***
     public MyRobot()
     {
-
+        boschMotorTest = new BoschMotor();
     }
 
     /**
@@ -29,7 +31,6 @@ public class MyRobot
     public void robotInit()
     {   
         displayHeader();
-        boschMotorTest = new BoschMotor();
     }
 
     /**
@@ -69,7 +70,7 @@ public class MyRobot
      */
     public void teleopInit()
     {
-        
+        boschMotorTest.resetEncoderCounter();
     }
 
     /**
@@ -77,7 +78,23 @@ public class MyRobot
      */
     public void teleopPeriodic()
     {
+        int boschEncoder = boschMotorTest.getEncoderValue();
+        double irSensor = boschMotorTest.getIrSensorValue();
         
+        if (irSensor > 1.7)
+        {
+            boschMotorTest.setPercentOutput(0.25);
+        }
+        else if(irSensor < 1.5)
+        {
+            boschMotorTest.setPercentOutput(-0.25);
+        }
+        else
+        {
+            boschMotorTest.setPercentOutput(0.0);
+        }
+        System.out.println("Encoder: " + boschEncoder + "  IR Sensor: " + irSensor);
+        SmartDashboard.putNumber("IR Sensor", irSensor);
     }
 
     /**
@@ -85,7 +102,7 @@ public class MyRobot
      */
     public void teleopExit()
     {
-        
+        boschMotorTest.setPercentOutput(0.0);
     }
 
     /**
@@ -93,7 +110,7 @@ public class MyRobot
      */
     public void testInit()
     {
-
+        
     }
 
     /**
@@ -101,7 +118,7 @@ public class MyRobot
      */
     public void testPeriodic()
     {
-        testBoschMotor();
+
     }
 
     /**
@@ -109,7 +126,7 @@ public class MyRobot
      */
     public void testExit()
     {
-
+        
     }
 
     /**
