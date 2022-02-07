@@ -1,6 +1,7 @@
 package frc.jwood.controls;
 
 import java.lang.invoke.MethodHandles;
+import java.util.function.Supplier;
 
 
 public class DriverController extends Xbox
@@ -89,6 +90,31 @@ public class DriverController extends Xbox
         } 
     }
 
+    public static enum JoystickInput
+    {
+        kButton, kAxis;
+    }
+
+    public static enum Action
+    {
+        kDrive(JoystickInput.kAxis, Xbox.Axis.kLeftX.value),
+        kActionLY(JoystickInput.kAxis, Xbox.Axis.kLeftY.value),
+        kActionRX(JoystickInput.kAxis, Xbox.Axis.kRightX.value),
+        kActionRY(JoystickInput.kAxis, Xbox.Axis.kRightX.value),
+
+        kArmIn(JoystickInput.kButton, Xbox.Button.kA.value),
+        ;
+
+        public final JoystickInput type;
+        public final int value;
+
+        private Action(JoystickInput type, int value)
+        {
+            this.type = type;
+            this.value = value;
+        }
+    }
+
 
     // *** CLASS & INSTANCE VARIABLES ***
 
@@ -161,4 +187,12 @@ public class DriverController extends Xbox
     {
         return getPOV();
     }
+
+    // public Supplier<Boolean> getValue(Action action)
+    // {
+    //     if(action.type == JoystickInput.kAxis)
+    //         return getRawAxis(action.value);
+    //     else if (action.type == JoystickInput.kButton)
+    //         return getRawButton(action.value);
+    // }
 }
