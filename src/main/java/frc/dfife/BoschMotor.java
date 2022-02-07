@@ -19,6 +19,8 @@ public class BoschMotor
         int encoderPort = 1;
 
         // Digital code for when you have a DIO adaptor
+        // Example of how to use encoder on Bosch seat motor using a DIO converter kit
+        // https://www.chiefdelphi.com/t/java-code-for-bosch-seat-motor-with-dio-kit/164325
         // TODO Change to Digital Input but also needs a converter
         motorCounter = new Counter(new DigitalInput(encoderPort));
         motorController = new TalonSRX(1);
@@ -45,6 +47,8 @@ public class BoschMotor
 
     public double getIrSensorValue()
     {
+        // SHARP 2Y0A21 has 10 cm to 80 cm range
+        // TODO Get better IR sensor with shorter range
         return irSensor.getAverageVoltage();
     }
 
