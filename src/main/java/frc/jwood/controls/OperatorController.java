@@ -18,20 +18,20 @@ public class OperatorController extends Logitech
     // *** INNER ENUMS and INNER CLASSES ***
     public static enum OperatorButtonAction
     {
-        kShoot(Button.kTrigger),
-        kAutoAim(Button.kHandleSide),
+        kShoot(Button.k1),
+        kAutoAim(Button.k2),
 
-        kOffTarget(Button.kHandleBottomLeft),
-        kOnTarget(Button.kHandleBottomRight),
+        kOffTarget(Button.k3),
+        kOnTarget(Button.k4),
         // kNoAction(Button.kHandleTopLeft),
         // kNoAction(Button.kHandleTopRight),
 
         // kNoAction(Button.kOuterTop),
         // kNoAction(Button.kInnerTop),
-        kFlywheelOverride(Button.kOuterMiddle),
-        kShooterOverride(Button.kInnerMiddle),
-        kWinch(Button.kOuterBottom),
-        kShuttleOverride(Button.kInnerBottom) 
+        kFlywheelOverride(Button.k9),
+        kShooterOverride(Button.k10),
+        kWinch(Button.k11),
+        kShuttleOverride(Button.k12) 
         ;
 
         public final Button button;
@@ -78,14 +78,14 @@ public class OperatorController extends Logitech
 
         System.out.println(fullClassName + " : Constructor Started");
 
-        init();
+        initOperatorController();
 
         System.out.println(fullClassName + ": Constructor Finished");
     }
 
 
     // *** CLASS & INSTANCE METHODS ***
-    private void init()
+    private void initOperatorController()
     {
         for(OperatorAxisAction action : OperatorAxisAction.values())
         {

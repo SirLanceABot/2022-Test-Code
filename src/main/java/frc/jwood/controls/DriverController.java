@@ -1,7 +1,6 @@
 package frc.jwood.controls;
 
 import java.lang.invoke.MethodHandles;
-import java.util.function.Supplier;
 
 
 public class DriverController extends Xbox
@@ -20,13 +19,10 @@ public class DriverController extends Xbox
     public static enum DriverButtonAction
     {
         // kRaiseArms(Button.kA),
-        // kLowerArms(Button.kB),
-
         kReverseDirection(Button.kB),
-
-        kIntakeUp(Button.kY),
         kIntakeDown(Button.kX),
-
+        kIntakeUp(Button.kY),
+        
         kIntakeReverse(Button.kLeftBumper),
         kIntakeO(Button.kRightBumper),
 
@@ -35,7 +31,6 @@ public class DriverController extends Xbox
 
         kDriveBoost(Button.kLeftStick),
         kShiftingUp(Button.kRightStick)
-        // kNoAction(Button.kRightStick),
         ;
 
         public final Button button;
@@ -126,14 +121,14 @@ public class DriverController extends Xbox
 
         System.out.println(fullClassName + " : Constructor Started");
 
-        init();
+        initDriverController();
 
         System.out.println(fullClassName + ": Constructor Finished");
     }
 
 
     // *** CLASS & INSTANCE METHODS ***
-    private void init()
+    private void initDriverController()
     {
         for(DriverAxisAction action : DriverAxisAction.values())
         {
@@ -187,12 +182,4 @@ public class DriverController extends Xbox
     {
         return getPOV();
     }
-
-    // public Supplier<Boolean> getValue(Action action)
-    // {
-    //     if(action.type == JoystickInput.kAxis)
-    //         return getRawAxis(action.value);
-    //     else if (action.type == JoystickInput.kButton)
-    //         return getRawButton(action.value);
-    // }
 }

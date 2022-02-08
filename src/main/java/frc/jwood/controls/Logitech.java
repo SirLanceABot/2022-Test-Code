@@ -19,8 +19,8 @@ public class Logitech extends Joystick
     // *** INNER ENUMS and INNER CLASSES ***
     public static enum Button
     {
-        kTrigger(1), kHandleSide(2), kHandleBottomLeft(3), kHandleBottomRight(4), kHandleTopLeft(5), kHandleTopRight(6), 
-        kOuterTop(7), kInnerTop(8), kOuterMiddle(9), kInnerMiddle(10), kOuterBottom(11), kInnerBottom(12);
+        k1(1), k2(2), k3(3), k4(4), k5(5), k6(6), 
+        k7(7), k8(8), k9(9), k10(10), k11(11), k12(12);
 
         public final int value;
 
@@ -70,7 +70,7 @@ public class Logitech extends Joystick
     private final double[] axisMinOutput = new double[NUMBER_OF_AXES];
     private final boolean[] axisIsFlipped = new boolean[NUMBER_OF_AXES];
     private final AxisScale[] axisScale = new AxisScale[NUMBER_OF_AXES];
-    private final Button[] buttons = new Button[11];
+    // private final Button[] buttons = new Button[11];
 
 
     // *** CLASS CONSTRUCTOR ***
@@ -80,14 +80,14 @@ public class Logitech extends Joystick
 
         System.out.println(fullClassName + " : Constructor Started");
 
-        init();
+        initLogitech();
 
         System.out.println(fullClassName + ": Constructor Finished");
     }
 
 
     // *** CLASS & INSTANCE METHODS ***
-    private void init()
+    private void initLogitech()
     {
         for(int index = 0; index <= NUMBER_OF_AXES - 1; index++)
         {

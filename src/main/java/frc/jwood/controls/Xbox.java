@@ -124,14 +124,14 @@ public class Xbox extends Joystick
 
         System.out.println(fullClassName + " : Constructor Started");
 
-        init();
+        initXbox();
 
         System.out.println(fullClassName + ": Constructor Finished"); 
     }
 
     
     // *** CLASS & INSTANCE METHODS ***
-    private void init()
+    private void initXbox()
     {
         // loop to set the defaults for every axis
         for(int index = 0; index <= NUMBER_OF_AXES - 1; index++)
