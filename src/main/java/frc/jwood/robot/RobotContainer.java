@@ -5,6 +5,7 @@ import java.lang.invoke.MethodHandles;
 import frc.jwood.constants.Port;
 import frc.jwood.controls.DriverController;
 import frc.jwood.controls.OperatorController;
+import frc.jwood.shuffleboard.AutonomousTab;
 import frc.jwood.shuffleboard.DriverControllerTab;
 import frc.jwood.shuffleboard.MainShuffleboard;
 import frc.jwood.shuffleboard.OperatorControllerTab;
@@ -28,6 +29,7 @@ public class RobotContainer
     public static final MainShuffleboard MAIN_SHUFFLEBOARD = new MainShuffleboard();
     public static final DriverControllerTab DRIVER_CONTROLLER_TAB = new DriverControllerTab();
     public static final OperatorControllerTab OPERATOR_CONTROLLER_TAB = new OperatorControllerTab();
+    public static final AutonomousTab AUTONOMOUS_TAB = new AutonomousTab();
 
 
     // *** CLASS CONSTRUCTOR ***
