@@ -2,6 +2,15 @@ package frc.mmcconomy;
 
 import java.lang.invoke.MethodHandles;
 
+import javax.lang.model.util.ElementScanner6;
+
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Joystick;
+
 public class MyRobot
 {
     private static final String fullClassName = MethodHandles.lookup().lookupClass().getCanonicalName();
@@ -14,13 +23,18 @@ public class MyRobot
     }
 
     // *** CLASS & INSTANCE VARIABLES ***
-
-
+    private static final DigitalInput SWITCH = new DigitalInput(0);
+    private static final TalonSRX TALON = new TalonSRX(0);
+    private static final Joystick joystick = new Joystick(0);
 
     // *** CLASS CONSTRUCTOR ***
     public MyRobot()
     {
-
+        TALON.configSelectedFeedbackSensor(FeedbackDevice.Analog);
+        // TALON.configForwardSoftLimitThreshold(80, 0);
+        TALON.configReverseSoftLimitThreshold(80, 0);
+        // TALON.configForwardSoftLimitEnable(true, 0);
+        TALON.configReverseSoftLimitEnable(true, 0);
     }
 
     /**
@@ -76,7 +90,23 @@ public class MyRobot
      */
     public void teleopPeriodic()
     {
-        
+        System.out.println(TALON.getSelectedSensorPosition());
+        if(joystick.getRawButton(1))
+        {
+            // System.out.println(TALON.getSelectedSensorPosition());
+            TALON.set(ControlMode.PercentOutput, .5);
+        }
+        else if(joystick.getRawButton(2))
+        {
+            
+            TALON.set(ControlMode.PercentOutput, -.5);
+        }
+        else
+        {
+            TALON.set(ControlMode.PercentOutput, 0);
+        }
+        // System.out.println(SWITCH.get());
+       
     }
 
     /**
@@ -100,7 +130,7 @@ public class MyRobot
      */
     public void testPeriodic()
     {
-
+        System.out.println(SWITCH.get());
     }
 
     /**
