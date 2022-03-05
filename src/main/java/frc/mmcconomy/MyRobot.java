@@ -7,7 +7,14 @@ import javax.lang.model.util.ElementScanner6;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkMaxAnalogSensor;
+import com.revrobotics.SparkMaxLimitSwitch;
+import com.revrobotics.SparkMaxLimitSwitch.Type;
+import com.revrobotics.AnalogInput;
 
+import edu.wpi.first.wpilibj.AnalogEncoder;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Joystick;
 
@@ -27,14 +34,27 @@ public class MyRobot
     private static final TalonSRX TALON = new TalonSRX(0);
     private static final Joystick joystick = new Joystick(0);
 
+    private static final CANSparkMax NEO = new CANSparkMax(7, com.revrobotics.CANSparkMaxLowLevel.MotorType.kBrushless);
+    private final RelativeEncoder NEOE;
+    private final SparkMaxLimitSwitch NEOLS;
+    private final SparkMaxLimitSwitch NEOLStwo;
+    private final AnalogEncoder JOE = new AnalogEncoder(0);
     // *** CLASS CONSTRUCTOR ***
     public MyRobot()
     {
-        TALON.configSelectedFeedbackSensor(FeedbackDevice.Analog);
-        // TALON.configForwardSoftLimitThreshold(80, 0);
-        TALON.configReverseSoftLimitThreshold(80, 0);
-        // TALON.configForwardSoftLimitEnable(true, 0);
-        TALON.configReverseSoftLimitEnable(true, 0);
+        //Talon code
+        // TALON.configSelectedFeedbackSensor(FeedbackDevice.Analog);
+        // // TALON.configForwardSoftLimitThreshold(80, 0);
+        // TALON.configReverseSoftLimitThreshold(80, 0);
+        // // TALON.configForwardSoftLimitEnable(true, 0);
+        // TALON.configReverseSoftLimitEnable(true, 0);
+        //CanSparkMax Code
+        NEOLS = NEO.getForwardLimitSwitch(Type.kNormallyOpen);
+        NEOLS.enableLimitSwitch(true);
+        NEOLStwo = NEO.getReverseLimitSwitch(Type.kNormallyOpen);
+        NEOLStwo.enableLimitSwitch(true);
+        NEOE = NEO.getEncoder();
+        NEOE.setPosition(0);
     }
 
     /**
@@ -90,20 +110,23 @@ public class MyRobot
      */
     public void teleopPeriodic()
     {
-        System.out.println(TALON.getSelectedSensorPosition());
+        // System.out.println(TALON.getSelectedSensorPosition());
         if(joystick.getRawButton(1))
         {
             // System.out.println(TALON.getSelectedSensorPosition());
-            TALON.set(ControlMode.PercentOutput, .5);
+            // TALON.set(ControlMode.PercentOutput, .5);
+            NEO.set(.1);
         }
         else if(joystick.getRawButton(2))
         {
             
-            TALON.set(ControlMode.PercentOutput, -.5);
+            // TALON.set(ControlMode.PercentOutput, -.5);
+            NEO.set(-.1);
         }
         else
         {
-            TALON.set(ControlMode.PercentOutput, 0);
+            // TALON.set(ControlMode.PercentOutput, 0);
+            NEO.set(0);
         }
         // System.out.println(SWITCH.get());
        
