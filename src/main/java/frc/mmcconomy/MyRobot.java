@@ -10,6 +10,14 @@ import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
 import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.sensors.CANCoder;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
+import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
+
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
@@ -17,6 +25,7 @@ import com.revrobotics.SparkMaxAnalogSensor;
 import com.revrobotics.SparkMaxLimitSwitch;
 import com.revrobotics.SparkMaxLimitSwitch.Type;
 import com.revrobotics.AnalogInput;
+import com.revrobotics.CANSparkMax.IdleMode;
 
 import edu.wpi.first.wpilibj.AnalogEncoder;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -48,20 +57,24 @@ public class MyRobot
     public MyRobot()
     {
         //Talon code
-        TALON.configSelectedFeedbackSensor(FeedbackDevice.Analog);
+        //TALON.configSelectedFeedbackSensor(FeedbackDevice.Analog);
         //TALON.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
         TALON.configForwardSoftLimitThreshold(0, 0);
         TALON.configReverseSoftLimitThreshold(-9, 0);
-        TALON.configForwardSoftLimitEnable(true, 0);
-        TALON.configReverseSoftLimitEnable(true, 0);
+        TALON.configForwardSoftLimitEnable(false, 0);
+        TALON.configReverseSoftLimitEnable(false, 0);
+
+        TALON.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
+        TALON.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen);
         
         //CanSparkMax Code
         NEOLS = NEO.getForwardLimitSwitch(Type.kNormallyOpen);
-        NEOLS.enableLimitSwitch(true);
+        NEOLS.enableLimitSwitch(false);
         NEOLStwo = NEO.getReverseLimitSwitch(Type.kNormallyOpen);
-        NEOLStwo.enableLimitSwitch(true);
+        NEOLStwo.enableLimitSwitch(false);
         NEOE = NEO.getEncoder();
         NEOE.setPosition(0);
+        NEO.setIdleMode(IdleMode.kBrake);
     }
 
     /**
@@ -117,23 +130,35 @@ public class MyRobot
      */
     public void teleopPeriodic()
     {
+        System.out.println("FWD: " + TALON.isFwdLimitSwitchClosed());
+        System.out.println("REV: " + TALON.isRevLimitSwitchClosed());
         
-        if(joystick.getRawButton(1))
+        if(joystick.getRawButton(1) && TALON.isFwdLimitSwitchClosed() == 0)
         {
-            System.out.println(TALON.getSelectedSensorPosition());
+            System.out.println(TALON.getSensorCollection().getAnalogIn());
             TALON.set(ControlMode.PercentOutput, .5);
-            // NEO.set(.1);
+            NEO.set(0);
         }
-        else if(joystick.getRawButton(2))
+        else if(joystick.getRawButton(1) && TALON.isFwdLimitSwitchClosed() >= 1)
         {
-            System.out.println(TALON.getSelectedSensorPosition());
+            NEO.set(.1);
+            TALON.set(ControlMode.PercentOutput, 0.0);
+        }
+        else if(joystick.getRawButton(2) && TALON.isRevLimitSwitchClosed() == 0)
+        {
+            System.out.println(TALON.getSensorCollection().getAnalogIn());
             TALON.set(ControlMode.PercentOutput, -.5);
-            // NEO.set(-.1);
+            NEO.set(0);
+        }
+        else if(joystick.getRawButton(2) && TALON.isRevLimitSwitchClosed() >= 1)
+        {
+            NEO.set(-.1);
+            TALON.set(ControlMode.PercentOutput, 0);
         }
         else
         {
             TALON.set(ControlMode.PercentOutput, 0);
-            // NEO.set(0);
+            NEO.set(0);
         }
         // System.out.println(SWITCH.get());
        
